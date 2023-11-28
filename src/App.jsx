@@ -2,7 +2,8 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/css/style.css';
 import AppLayout from './ui/AppLayout';
-import Home from './ui/Home';
+import Home, { loader as homeProductLoader } from './ui/Home';
+import Shop, { loader as shopProductLoader } from './feature/shop/Shop';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -12,6 +13,12 @@ const App = () => {
         {
           path: '/',
           element: <Home />,
+          loader: homeProductLoader,
+        },
+        {
+          path: '/shop',
+          element: <Shop />,
+          loader: shopProductLoader,
         },
       ],
     },

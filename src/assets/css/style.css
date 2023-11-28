@@ -258,7 +258,8 @@ a.more {
   text-decoration: none;
   display: block;
   position: relative;
-  padding-bottom: 50px;
+  margin-bottom: 50px;
+  padding-bottom: 25px;
   cursor: pointer;
 }
 .product-section .product-item .product-thumbnail {
@@ -268,6 +269,10 @@ a.more {
   -webkit-transition: 0.3s all ease;
   -o-transition: 0.3s all ease;
   transition: 0.3s all ease;
+  height: 300px;
+  width: 100%;
+  object-fit: cover;
+  object-position: bottom;
 }
 .product-section .product-item h3 {
   font-weight: 600;
@@ -281,6 +286,8 @@ a.more {
 .product-section .product-item strong {
   color: #2f2f2f;
   text-decoration: none;
+  position: relative;
+  z-index: 9;
 }
 .product-section .product-item .icon-cross {
   position: absolute;
@@ -322,6 +329,7 @@ a.more {
   -webkit-transition: 0.3s all ease;
   -o-transition: 0.3s all ease;
   transition: 0.3s all ease;
+  z-index: 0;
 }
 .product-section .product-item:hover .product-thumbnail {
   top: -25px;
@@ -889,4 +897,11 @@ textarea {
   height: 50px;
   border-radius: 50%;
   background: rgba(59, 93, 80, 0.2);
+}
+
+.filter {
+  background-color: #dce5e4;
+  border: 2px solid #6a6a6a;
+  border-radius: 100px;
+  margin-bottom: 5rem;
 }

@@ -1,8 +1,13 @@
 import { Col, Container, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import Couch from '../assets/images/couch.png';
+import { getProduct } from '../services/serviceApi';
+import ProductCard from '../feature/shop/ProductCard';
 
 const Home = () => {
+  const products = useLoaderData();
+  console.log('products', products);
+
   return (
     <>
       <div className="hero">
@@ -20,7 +25,9 @@ const Home = () => {
                 </p>
                 <p>
                   <Link className="btn btn-secondary me-2">Shop Now</Link>
-                  <Link className="btn btn-white-outline">Explore</Link>
+                  <Link to="/shop" className="btn btn-white-outline">
+                    Explore
+                  </Link>
                 </p>
               </div>
             </div>
@@ -49,21 +56,20 @@ const Home = () => {
             </Col>
           </Row>
 
-          {/* <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-						<a class="product-item" href="cart.html">
-							<img src="images/product-1.png" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Nordic Chair</h3>
-							<strong class="product-price">$50.00</strong>
-
-							<span class="icon-cross">
-								<img src="images/cross.svg" class="img-fluid">
-							</span>
-						</a>
-					</div>  */}
+          <Row className="mt-5">
+            {products.slice(0, 4).map((product) => (
+              <ProductCard product={product} key={product.id} />
+            ))}
+          </Row>
         </Container>
       </div>
     </>
   );
+};
+
+export const loader = async () => {
+  const product = await getProduct(4);
+  return product;
 };
 
 export default Home;
