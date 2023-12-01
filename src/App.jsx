@@ -4,6 +4,7 @@ import './assets/css/style.css';
 import AppLayout from './ui/AppLayout';
 import Home, { loader as homeProductLoader } from './ui/Home';
 import Shop, { loader as shopProductLoader } from './feature/shop/Shop';
+import { action as shopAction } from './feature/shop/Filter';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -19,6 +20,7 @@ const App = () => {
           path: '/shop',
           element: <Shop />,
           loader: shopProductLoader,
+          action: shopAction,
         },
       ],
     },

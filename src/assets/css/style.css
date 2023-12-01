@@ -788,13 +788,16 @@ a.more {
   padding: 7rem 0;
 }
 
-.form-control {
+.form-control,
+.form-select {
   height: 50px;
   border-radius: 10px;
   font-family: 'Inter', sans-serif;
 }
 .form-control:active,
-.form-control:focus {
+.form-control:focus,
+.form-select:active,
+.form-select:focus {
   outline: none;
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -802,16 +805,20 @@ a.more {
   -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
 }
-.form-control::-webkit-input-placeholder {
+.form-control::-webkit-input-placeholder,
+.form-select::-webkit-input-placeholder {
   font-size: 14px;
 }
-.form-control::-moz-placeholder {
+.form-control::-moz-placeholder,
+.form-select::-moz-placeholder {
   font-size: 14px;
 }
-.form-control:-ms-input-placeholder {
+.form-control:-ms-input-placeholder,
+.form-select:-ms-input-placeholder {
   font-size: 14px;
 }
-.form-control:-moz-placeholder {
+.form-control:-moz-placeholder,
+.form-select:-moz-placeholder {
   font-size: 14px;
 }
 
@@ -900,8 +907,87 @@ textarea {
 }
 
 .filter {
-  background-color: #dce5e4;
-  border: 2px solid #6a6a6a;
-  border-radius: 100px;
-  margin-bottom: 5rem;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 15px;
+  padding: 30px 25px 50px;
+}
+
+.form-check > input.form-check-input {
+  box-shadow: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 0;
+}
+
+.form-check > label.form-check-label {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.form-check-input:checked {
+  background-color: #000;
+  border-color: #000;
+}
+
+.color,
+.color input {
+  position: relative;
+  overflow: hidden;
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+}
+
+.color {
+  float: left;
+  margin: 3px;
+}
+
+.color input {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  opacity: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.color i {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  background-image: url(http://cdn.nicolapps.ch/images/uploads/1478199301.png);
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  opacity: 0;
+  transition: 0.15s opacity ease-in-out;
+}
+
+.color input:checked + i {
+  opacity: 1;
+}
+
+.color-filter > span {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.color-filter > span p {
+  font-weight: 700;
+  color: #000;
+  margin: 0;
+  background: #fff;
+  padding: 3px 10px;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
 }

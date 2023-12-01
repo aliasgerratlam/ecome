@@ -6,7 +6,6 @@ import ProductCard from '../feature/shop/ProductCard';
 
 const Home = () => {
   const products = useLoaderData();
-  console.log('products', products);
 
   return (
     <>
