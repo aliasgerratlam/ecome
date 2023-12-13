@@ -289,6 +289,11 @@ a.more {
   position: relative;
   z-index: 9;
 }
+.product-item small {
+  z-index: 99;
+  position: relative;
+}
+
 .product-section .product-item .icon-cross {
   position: absolute;
   width: 35px;

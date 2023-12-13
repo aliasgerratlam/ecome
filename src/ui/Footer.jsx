@@ -35,9 +35,7 @@ const Footer = () => {
                   />
                 </div>
                 <div className="col-auto">
-                  <button className="btn btn-primary">
-                    <span className="fa fa-paper-plane"></span>
-                  </button>
+                  <button className="btn btn-primary">Send</button>
                 </div>
               </form>
             </div>

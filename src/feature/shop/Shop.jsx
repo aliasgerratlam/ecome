@@ -10,31 +10,48 @@ const Shop = () => {
   const products = useLoaderData();
   // const navigate = useNavigate();
   const [dataProduct, setDataProduct] = useState(products);
-  const [filter, setFilter] = useState({});
+  const [filterProd, setFilter] = useState({});
 
-  console.log('product', dataProduct, setDataProduct, filter);
+  // console.log('filterProd', filterProd);
 
   useEffect(() => {
-    if (filter.sortby === 'Price, Low to High') {
-      setDataProduct((prev) => [...prev].sort((a, b) => a.price - b.price));
-    } else if (filter.sortby === 'Price, High to Low') {
-      setDataProduct((prev) => [...prev].sort((a, b) => b.price - a.price));
-    } else if (filter.sortby === 'Alphabetically, A to Z') {
+    if (filterProd.sortby === 'Price, Low to High') {
+      console.log('LTH');
+
+      const sortArr = [...dataProduct]
+        .sort((a, b) => a.price - b.price)
+        .slice();
+      setDataProduct((prev) => [...prev, ...sortArr]);
+    }
+
+    // if (filterProd.sortby === 'Price, Low to High') {
+    //   setDataProduct((prev) => [...prev].sort((a, b) => a.price - b.price));
+    // } else if (filterProd.sortby === 'Price, High to Low') {
+    //   setDataProduct((prev) => [...prev].sort((a, b) => b.price - a.price));
+    // } else if (filterProd.sortby === 'Alphabetically, A to Z') {
+    //   setDataProduct((prev) =>
+    //     [...prev].sort((a, b) => a.name.localeCompare(b.name)),
+    //   );
+    // } else if (filterProd.sortby === 'Alphabetically, Z to A') {
+    //   setDataProduct((prev) =>
+    //     [...prev].sort((a, b) => b.name.localeCompare(a.name)),
+    //   );
+    // } else {
+    //   setDataProduct(products);
+    // }
+  }, [filterProd.sortby]);
+  useEffect(() => {
+    // console.log('CATEGORY>>>>>>>>>>>>>>>>>>>>>>', filterProd);
+    if (filterProd.category && filterProd.category.length !== 0) {
       setDataProduct((prev) =>
-        [...prev].sort((a, b) => a.name.localeCompare(b.name)),
-      );
-    } else if (filter.sortby === 'Alphabetically, Z to A') {
-      setDataProduct((prev) =>
-        [...prev].sort((a, b) => b.name.localeCompare(a.name)),
-      );
-    } else if (filter.price) {
-      setDataProduct((prev) =>
-        prev.filter((product) => product.price < filter.price),
+        prev.filter((product) =>
+          filterProd.category.some((cate) => cate.includes(product.category)),
+        ),
       );
     } else {
-      setDataProduct((prev) => [...prev]);
+      setDataProduct(products);
     }
-  }, [filter.sortby, filter.price]);
+  }, [filterProd.category]);
 
   return (
     <>

@@ -6,7 +6,7 @@ const Filter = ({ products, setFilter }) => {
   const [category, setCategory] = useState([]);
   const [brand, setBrand] = useState([]);
   const [color, setColor] = useState([]);
-  const [price, setPrice] = useState(10);
+  const [priceRange, setPriceRange] = useState(0);
 
   useEffect(() => {
     const cate = products.reduce((categories, product) => {
@@ -34,7 +34,20 @@ const Filter = ({ products, setFilter }) => {
   const handleInputChange = async () => {
     const formData = new FormData(document.querySelector('form'));
     const data = Object.fromEntries(formData);
-    setFilter(data);
+    const primeFilter = {
+      sortby: data.sortby,
+      category: Object.keys(data)
+        .filter((key) => key.startsWith('category'))
+        .map((val) => data[val]),
+    };
+    setFilter(primeFilter);
+  };
+
+  const handleSliderChange = (e) => {
+    setPriceRange(e.target.value);
+    // const newSliderValue = Array.isArray(newValue) ? newValue : [e, newValue];
+
+    // console.log('egrooww', e.target.value, newSliderValue, setPriceRange);
   };
 
   return (
@@ -58,11 +71,11 @@ const Filter = ({ products, setFilter }) => {
         <Form.Group className="mb-3 color-filter">
           <span>
             <Form.Label className="text-black fw-bold">Price</Form.Label>
-            <p>${price}</p>
+            <p>{priceRange}</p>
           </span>
           <Form.Range
-            onChange={(e) => setPrice(e.target.value)}
-            min={10}
+            onChange={handleSliderChange}
+            min={0}
             max={100_000}
             name="price"
           />
@@ -74,8 +87,9 @@ const Filter = ({ products, setFilter }) => {
             <Form.Check
               className="text-capitalize"
               type="checkbox"
-              name={name}
+              name={`category-${i}`}
               label={name}
+              value={name}
               id={i}
               key={i}
             />
@@ -88,7 +102,8 @@ const Filter = ({ products, setFilter }) => {
             <Form.Check
               className="text-capitalize"
               type="checkbox"
-              name={name}
+              name={`brand-${i}`}
+              value={name}
               label={name}
               id={name}
               key={i}
@@ -100,7 +115,7 @@ const Filter = ({ products, setFilter }) => {
           <Form.Label className="text-black fw-bold w-100">Color</Form.Label>
           {color.map((name, i) => (
             <div key={i} className="color" style={{ backgroundColor: name }}>
-              <input type="checkbox" value={name} name={name} />
+              <input type="checkbox" value={name} name={`color-${i}`} />
               <i className="checkbox-icon"></i>
             </div>
           ))}
