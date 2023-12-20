@@ -39,6 +39,12 @@ const Filter = ({ products, setFilter }) => {
       category: Object.keys(data)
         .filter((key) => key.startsWith('category'))
         .map((val) => data[val]),
+      brand: Object.keys(data)
+        .filter((key) => key.startsWith('brand'))
+        .map((val) => data[val]),
+      color: Object.keys(data)
+        .filter((key) => key.startsWith('color'))
+        .map((val) => data[val]),
     };
     setFilter(primeFilter);
   };

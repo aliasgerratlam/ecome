@@ -996,3 +996,19 @@ textarea {
   border-radius: 8px;
   border: 1px solid #dee2e6;
 }
+
+.auth-page {
+  min-height: 100vh;
+}
+
+.auth-page .content-side {
+  background-color: #3b5d50;
+  color: #fff;
+  min-height: 100vh;
+}
+
+.content-side img {
+  position: absolute;
+  width: 80%;
+  left: 60px;
+}

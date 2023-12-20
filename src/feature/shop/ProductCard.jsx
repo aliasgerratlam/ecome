@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import Cross from '../../assets/images/cross.svg';
 
 const ProductCard = ({ product }) => {
-  const { name, price, image, category } = product;
+  const { id, name, price, image, category } = product;
 
   return (
     <Col lg={3}>
-      <Link className="product-item">
+      <Link to={`/shop/${id}`} className="product-item">
         <img src={image} className="img-fluid product-thumbnail" />
         <small className="text-capitalize">{category}</small>
         <h3 className="product-title text-capitalize">{name}</h3>
