@@ -67,7 +67,7 @@ const Home = () => {
 };
 
 export const loader = async () => {
-  const product = await getProduct(4);
+  const product = await getProduct();
   return product;
 };
 

@@ -4,9 +4,11 @@ import './assets/css/style.css';
 import AppLayout from './ui/AppLayout';
 import Home, { loader as homeProductLoader } from './ui/Home';
 import Shop, { loader as shopProductLoader } from './feature/shop/Shop';
+import ShopDetail, {
+  loader as singleShopLoader,
+} from './feature/shop/ShopDetail';
 import { action as shopAction } from './feature/shop/Filter';
 import Signup from './feature/auth/Signup';
-import ShopDetail from './feature/shop/ShopDetail';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -27,6 +29,9 @@ const App = () => {
         {
           path: '/shop/:id',
           element: <ShopDetail />,
+          loader: ({ params }) => {
+            return singleShopLoader(params.id);
+          },
         },
       ],
     },
