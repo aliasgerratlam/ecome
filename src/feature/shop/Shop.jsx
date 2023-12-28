@@ -3,17 +3,14 @@ import { getProduct } from '../../services/serviceApi';
 import { useLoaderData } from 'react-router-dom';
 import ProductCard from './ProductCard';
 import Filter from './Filter';
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 const Shop = () => {
   const products = useLoaderData();
-  const [dataProduct, setDataProduct] = useState(products);
   const [filterProd, setFilter] = useState({});
 
-  useEffect(() => {
-    const duplicate = [...products];
-
-    const filteredProducts = duplicate.filter(
+  const filteredProducts = useMemo(() => {
+    const filtered = products.filter(
       (product) =>
         (!filterProd.category ||
           filterProd.category.length === 0 ||
@@ -25,33 +22,28 @@ const Shop = () => {
           filterProd.brand.some((brand) => brand.includes(product.company))) &&
         (!filterProd.color ||
           filterProd.color.length === 0 ||
-          filterProd.color.some((brand) => brand.includes(product.colors))),
+          filterProd.color.some((color) => color.includes(product.colors))),
     );
-    setDataProduct(filteredProducts);
-  }, [filterProd.category, filterProd.brand, filterProd.color, products]);
 
-  useEffect(() => {
-    // if (filterProd.sortby === 'Price, Low to High') {
-    //   const sortedProducts = [...products].sort((a, b) => a.price - b.price);
-    //   setDataProduct(sortedProducts);
-    // }
+    const sortOptions = {
+      'Price, Low to High': (a, b) => a.price - b.price,
+      'Price, High to Low': (a, b) => b.price - a.price,
+      'Alphabetically, A to Z': (a, b) => a.name.localeCompare(b.name),
+      'Alphabetically, Z to A': (a, b) => b.name.localeCompare(a.name),
+    };
 
-    if (filterProd.sortby === 'Price, Low to High') {
-      setDataProduct((prev) => [...prev].sort((a, b) => a.price - b.price));
-    } else if (filterProd.sortby === 'Price, High to Low') {
-      setDataProduct((prev) => [...prev].sort((a, b) => b.price - a.price));
-    } else if (filterProd.sortby === 'Alphabetically, A to Z') {
-      setDataProduct((prev) =>
-        [...prev].sort((a, b) => a.name.localeCompare(b.name)),
-      );
-    } else if (filterProd.sortby === 'Alphabetically, Z to A') {
-      setDataProduct((prev) =>
-        [...prev].sort((a, b) => b.name.localeCompare(a.name)),
-      );
-    } else {
-      setDataProduct(products);
-    }
-  }, [filterProd.sortby, products]);
+    const sorted = sortOptions[filterProd.sortby]
+      ? [...filtered].sort(sortOptions[filterProd.sortby])
+      : filtered;
+
+    return sorted;
+  }, [
+    filterProd.sortby,
+    filterProd.category,
+    filterProd.brand,
+    filterProd.color,
+    products,
+  ]);
 
   return (
     <>
@@ -73,7 +65,7 @@ const Shop = () => {
 
               <Col lg={10}>
                 <Row>
-                  {dataProduct.map((product) => (
+                  {filteredProducts.map((product) => (
                     <ProductCard product={product} key={product.id} />
                   ))}
                 </Row>

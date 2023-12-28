@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Form as FormDom } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
+import ColorSwatch from './ColorSwatch';
 
 const Filter = ({ products, setFilter }) => {
   const [category, setCategory] = useState([]);
@@ -120,10 +121,7 @@ const Filter = ({ products, setFilter }) => {
         <Form.Group className="mb-3 ">
           <Form.Label className="text-black fw-bold w-100">Color</Form.Label>
           {color.map((name, i) => (
-            <div key={i} className="color" style={{ backgroundColor: name }}>
-              <input type="checkbox" value={name} name={`color-${i}`} />
-              <i className="checkbox-icon"></i>
-            </div>
+            <ColorSwatch key={i} colorName={name} index={i} />
           ))}
         </Form.Group>
       </FormDom>

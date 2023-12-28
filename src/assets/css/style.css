@@ -1012,3 +1012,81 @@ textarea {
   width: 80%;
   left: 60px;
 }
+
+.single-product {
+  min-height: 700px;
+  padding: 5rem 0 15rem;
+}
+
+.stock-number em {
+  font-style: italic;
+  font-size: 16px;
+}
+
+.quantity-btn button {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+}
+
+.quantity-btn span {
+  font-size: 18px;
+  padding: 5px;
+  font-weight: 600;
+  min-width: 30px;
+  display: inline-block;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.rating svg {
+  font-size: 18px;
+  margin: 2px;
+}
+
+.rating span {
+  font-size: 20px;
+  line-height: normal;
+}
+
+.image-collections {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+}
+
+.image-collections img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+}
+
+.product-info {
+  padding: 30px;
+  background: #fff;
+  border-radius: 20px;
+}
+
+.outOfStock-tag {
+  display: inline-block;
+  /* background-color: #e64a19; */
+  /* border: 1px solid #e64a19; */
+  border-radius: 10px;
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  color: #e64a19;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.wishlist-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 18px;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+}

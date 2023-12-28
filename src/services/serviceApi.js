@@ -14,7 +14,6 @@ export const getProduct = async () => {
 };
 
 export const getSingleProduct = async (id) => {
-  console.log('id', id);
   try {
     const res = await axios.get(`${API_SINGLE_URL}?id=${id}`);
     return res.data;

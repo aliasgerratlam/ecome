@@ -4,7 +4,7 @@ import Cross from '../../assets/images/cross.svg';
 
 const ProductCard = ({ product }) => {
   const { id, name, price, image, category } = product;
-
+  console.log('stock', product);
   return (
     <Col lg={3}>
       <Link to={`/shop/${id}`} className="product-item">
