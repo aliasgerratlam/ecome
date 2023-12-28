@@ -78,6 +78,7 @@ const Shop = () => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const loader = async () => {
   const product = await getProduct();
   return product;
