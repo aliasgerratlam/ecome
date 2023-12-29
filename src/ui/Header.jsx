@@ -2,8 +2,12 @@ import User from '../assets/images/user.svg';
 import Cart from '../assets/images/cart.svg';
 import { Container, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { getCartQuantity } from '../feature/cart/cartSlice';
 
 const Header = () => {
+  const count = useSelector(getCartQuantity);
+
   return (
     <Navbar bg="dark" data-bs-theme="dark" className="custom-navbar">
       <Container>
@@ -52,7 +56,8 @@ const Header = () => {
               </a>
             </li>
             <li>
-              <a className="nav-link" href="cart.html">
+              <a className="nav-link" href="#">
+                {count > 0 && <span className="count">{count}</span>}
                 <img src={Cart} />
               </a>
             </li>

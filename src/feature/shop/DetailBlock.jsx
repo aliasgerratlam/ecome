@@ -5,11 +5,11 @@ import QuantityButton from './QuantityButton';
 import { IoMdHeart } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMemo, useState } from 'react';
-import { addItem, deleteItem } from '../cart/cartSlice';
+import { addItem, deleteItem, getCart } from '../cart/cartSlice';
 
 const DetailBlock = ({ getSingleProduct }) => {
   const dispatch = useDispatch();
-  const cartItem = useSelector((state) => state.cart.cart);
+  const cartItem = useSelector(getCart);
   const {
     id,
     name,

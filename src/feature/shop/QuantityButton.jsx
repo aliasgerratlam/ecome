@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { decreaseQuantity, increaseQuantity } from '../cart/cartSlice';
+import { decreaseQuantity, getCart, increaseQuantity } from '../cart/cartSlice';
 
 const QuantityButton = ({ id }) => {
   const dispatch = useDispatch();
-  const item = useSelector((state) => state.cart.cart);
+  const item = useSelector(getCart);
   const quantity = item.find((el) => el.id === id).quantity;
   const stock = item.find((el) => el.id === id).stock;
 

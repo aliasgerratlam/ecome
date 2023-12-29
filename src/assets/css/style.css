@@ -1092,3 +1092,16 @@ textarea {
   height: 50px;
   padding: 0;
 }
+
+.custom-navbar-cta li {
+  position: relative;
+}
+
+.custom-navbar-cta li .count {
+  color: #fff;
+  font-weight: 600;
+  font-size: 12px;
+  position: absolute;
+  top: 0;
+  right: -5px;
+}
