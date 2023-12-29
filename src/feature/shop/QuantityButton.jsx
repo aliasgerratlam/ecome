@@ -1,16 +1,20 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { decreaseQuantity, increaseQuantity } from '../cart/cartSlice';
 
-const QuantityButton = ({ stock }) => {
-  const [value, setValue] = useState(0);
+const QuantityButton = ({ id }) => {
+  const dispatch = useDispatch();
+  const item = useSelector((state) => state.cart.cart);
+  const quantity = item.find((el) => el.id === id).quantity;
+  const stock = item.find((el) => el.id === id).stock;
 
   const handleIncrement = (e) => {
     e.preventDefault();
-    setValue((prev) => prev + 1);
+    dispatch(increaseQuantity(id));
   };
 
   const handleDecrement = (e) => {
     e.preventDefault();
-    if (value > 1) setValue((prev) => prev - 1);
+    dispatch(decreaseQuantity(id));
   };
 
   return (
@@ -18,11 +22,14 @@ const QuantityButton = ({ stock }) => {
       <button className="btn" onClick={handleDecrement}>
         -
       </button>
-      <span>{value}</span>
-      <button className="btn" onClick={handleIncrement}>
+      <span>{quantity}</span>
+      <button
+        className="btn"
+        disabled={quantity >= stock}
+        onClick={handleIncrement}
+      >
         +
       </button>
-      {value > stock && <p>Product quantity is great than stock</p>}
     </div>
   );
 };

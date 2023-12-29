@@ -1,11 +1,11 @@
 import { Image } from 'react-bootstrap';
 
-const ImageCollection = ({ data, stock }) => {
-  console.log('data', data);
+const ImageCollection = ({ getSingleProduct }) => {
+  const { images, stock } = getSingleProduct;
 
   return (
     <div className="image-collections">
-      {data.map((image) => (
+      {images.map((image) => (
         <Image
           style={{ filter: stock === 0 ? 'grayscale(100%)' : 'grayscale(0%)' }}
           key={image.id}
