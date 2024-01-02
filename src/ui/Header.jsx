@@ -18,9 +18,9 @@ const Header = () => {
         <div className="collapse navbar-collapse" id="navbarsFurni">
           <ul className="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
             <li className="nav-item active">
-              <a className="nav-link" href="index.html">
+              <Link className="nav-link" to="/">
                 Home
-              </a>
+              </Link>
             </li>
             <li>
               <Link className="nav-link" to="/shop">
@@ -56,10 +56,10 @@ const Header = () => {
               </a>
             </li>
             <li>
-              <a className="nav-link" href="#">
+              <Link className="nav-link" to="/cart">
                 {count > 0 && <span className="count">{count}</span>}
                 <img src={Cart} />
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

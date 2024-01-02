@@ -1,10 +1,19 @@
 import { Col, Container, Row } from 'react-bootstrap';
 import NameBanner from '../../ui/NameBanner';
+import CartItem from './CartItem';
+import { useSelector } from 'react-redux';
+import { getCart } from './cartSlice';
+import { Link } from 'react-router-dom';
+import { CurrencyFormatter } from '../../utils/FormatCurrency';
+import useCartPrice from './useCartPrice';
 
 const Cart = () => {
+  const carts = useSelector(getCart);
+  const { totalCartPrice, totalPrice, totalTax } = useCartPrice();
+
   return (
     <div>
-      <NameBanner />
+      <NameBanner title="Cart" />
 
       <div className="untree_co-section before-footer-section">
         <Container>
@@ -15,114 +24,17 @@ const Cart = () => {
                   <tr>
                     <th className="product-thumbnail">Image</th>
                     <th className="product-name">Product</th>
+                    <th className="product-color">Color</th>
                     <th className="product-price">Price</th>
                     <th className="product-quantity">Quantity</th>
-                    <th className="product-total">Total</th>
+                    <th className="product-total">Sub Total</th>
                     <th className="product-remove">Remove</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td className="product-thumbnail">
-                      <img
-                        src="images/product-1.png"
-                        alt="Image"
-                        className="img-fluid"
-                      />
-                    </td>
-                    <td className="product-name">
-                      <h2 className="h5 text-black">Product 1</h2>
-                    </td>
-                    <td>$49.00</td>
-                    <td>
-                      <div
-                        className="input-group mb-3 d-flex align-items-center quantity-container"
-                        style="max-width: 120px;"
-                      >
-                        <div className="input-group-prepend">
-                          <button
-                            className="btn btn-outline-black decrease"
-                            type="button"
-                          >
-                            &minus;
-                          </button>
-                        </div>
-                        <input
-                          type="text"
-                          className="form-control text-center quantity-amount"
-                          value="1"
-                          placeholder=""
-                          aria-label="Example text with button addon"
-                          aria-describedby="button-addon1"
-                        />
-                        <div className="input-group-append">
-                          <button
-                            className="btn btn-outline-black increase"
-                            type="button"
-                          >
-                            &plus;
-                          </button>
-                        </div>
-                      </div>
-                    </td>
-                    <td>$49.00</td>
-                    <td>
-                      <a href="#" className="btn btn-black btn-sm">
-                        X
-                      </a>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td className="product-thumbnail">
-                      <img
-                        src="images/product-2.png"
-                        alt="Image"
-                        className="img-fluid"
-                      />
-                    </td>
-                    <td className="product-name">
-                      <h2 className="h5 text-black">Product 2</h2>
-                    </td>
-                    <td>$49.00</td>
-                    <td>
-                      <div
-                        className="input-group mb-3 d-flex align-items-center quantity-container"
-                        style="max-width: 120px;"
-                      >
-                        <div className="input-group-prepend">
-                          <button
-                            className="btn btn-outline-black decrease"
-                            type="button"
-                          >
-                            &minus;
-                          </button>
-                        </div>
-                        <input
-                          type="text"
-                          className="form-control text-center quantity-amount"
-                          value="1"
-                          placeholder=""
-                          aria-label="Example text with button addon"
-                          aria-describedby="button-addon1"
-                        />
-                        <div className="input-group-append">
-                          <button
-                            className="btn btn-outline-black increase"
-                            type="button"
-                          >
-                            &plus;
-                          </button>
-                        </div>
-                      </div>
-                    </td>
-                    <td>$49.00</td>
-                    <td>
-                      <a href="#" className="btn btn-black btn-sm">
-                        X
-                      </a>
-                    </td>
-                  </tr>
+                  {carts?.map((cart, i) => (
+                    <CartItem key={i} cart={cart} />
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -130,18 +42,12 @@ const Cart = () => {
 
           <Row>
             <Col lg={6}>
-              <Row className="mb-5">
-                <Col lg={6} className="mb-3 mb-md-0">
-                  <button className="btn btn-black btn-sm btn-block">
-                    Update Cart
-                  </button>
-                </Col>
-                <Col lg={6}>
-                  <button className="btn btn-outline-black btn-sm btn-block">
-                    Continue Shopping
-                  </button>
-                </Col>
-              </Row>
+              <Link
+                to="/shop"
+                className="btn btn-outline-black btn-sm btn-block mb-5"
+              >
+                Continue Shopping
+              </Link>
 
               <Row>
                 <Col lg={12}>
@@ -161,43 +67,58 @@ const Cart = () => {
                 </Col>
               </Row>
             </Col>
-            <div className="col-md-6 pl-5">
-              <div className="row justify-content-end">
+
+            <Col md={6} className="pl-5">
+              <Row className="row justify-content-end">
                 <div className="col-md-7">
-                  <div className="row">
-                    <div className="col-md-12 text-right border-bottom mb-5">
-                      <h3 className="text-black h4 text-uppercase">
-                        Cart Totals
-                      </h3>
-                    </div>
-                  </div>
-                  <div className="row mb-3">
-                    <div className="col-md-6">
-                      <span className="text-black">Subtotal</span>
-                    </div>
-                    <div className="col-md-6 text-right">
-                      <strong className="text-black">$230.00</strong>
-                    </div>
-                  </div>
-                  <div className="row mb-5">
-                    <div className="col-md-6">
-                      <span className="text-black">Total</span>
-                    </div>
-                    <div className="col-md-6 text-right">
-                      <strong className="text-black">$230.00</strong>
-                    </div>
+                  <div className="text-right border-bottom mb-5">
+                    <h3 className="text-black h4 text-uppercase">
+                      Cart Totals
+                    </h3>
                   </div>
 
-                  <div className="row">
-                    <div className="col-md-12">
-                      <button className="btn btn-black btn-lg py-3 btn-block">
-                        Proceed To Checkout
-                      </button>
-                    </div>
-                  </div>
+                  <Row className="mb-3">
+                    <Col md={6}>
+                      <span className="text-black">Subtotal</span>
+                    </Col>
+                    <Col md={6} className="text-right">
+                      <strong className="text-black">
+                        {<CurrencyFormatter amount={totalPrice} />}
+                      </strong>
+                    </Col>
+                  </Row>
+
+                  <Row className="mb-3">
+                    <Col md={6}>
+                      <span className="text-black">Tax (18%)</span>
+                    </Col>
+                    <Col md={6}>
+                      <strong className="text-black">
+                        {<CurrencyFormatter amount={totalTax} />}
+                      </strong>
+                    </Col>
+                  </Row>
+
+                  <Row className="mb-5">
+                    <Col md={6}>
+                      <span className="text-black">Total</span>
+                    </Col>
+                    <Col md={6}>
+                      <strong className="text-black">
+                        {<CurrencyFormatter amount={totalCartPrice} />}
+                      </strong>
+                    </Col>
+                  </Row>
+
+                  <Link
+                    to="/checkout"
+                    className="btn btn-black btn-lg py-3 btn-block"
+                  >
+                    Proceed To Checkout
+                  </Link>
                 </div>
-              </div>
-            </div>
+              </Row>
+            </Col>
           </Row>
         </Container>
       </div>

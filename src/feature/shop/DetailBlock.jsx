@@ -1,4 +1,4 @@
-import CurrencyFormatter from '../../utils/FormatCurrency';
+import { CurrencyFormatter } from '../../utils/FormatCurrency';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 import ColorSwatch from './ColorSwatch';
 import QuantityButton from './QuantityButton';
@@ -13,6 +13,7 @@ const DetailBlock = ({ getSingleProduct }) => {
   const {
     id,
     name,
+    images,
     stars,
     price,
     description,
@@ -27,15 +28,15 @@ const DetailBlock = ({ getSingleProduct }) => {
     [cartItem, name],
   );
 
-  console.log('getSingleProduct', getSingleProduct);
-
   const handleAddToCart = (e) => {
     e.preventDefault();
 
     const item = {
       id,
       name,
+      images,
       price: Number(price),
+      totalPrice: Number(price),
       stock,
       quantity: 1,
       category,
@@ -101,7 +102,7 @@ const DetailBlock = ({ getSingleProduct }) => {
           <div className="d-flex flex-wrap pt-2">
             {stock > 0 && isCart && <QuantityButton id={id} />}
             {stock === 0 && (
-              <div className="outOfStock-tag">❗Out of Stock</div>
+              <div className="outOfStock-tag">Out of Stock❗</div>
             )}
             {stock > 0 && !isCart && (
               <button className="btn me-2" onClick={handleAddToCart}>

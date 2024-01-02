@@ -9,6 +9,9 @@ import ShopDetail, {
 } from './feature/shop/ShopDetail';
 import { action as shopAction } from './feature/shop/Filter';
 import Signup from './feature/auth/Signup';
+import Cart from './feature/cart/Cart';
+import Checkout from './feature/checkout/Checkout';
+import { action as checkoutAction } from './feature/checkout/CheckoutForm';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -32,6 +35,15 @@ const App = () => {
           loader: ({ params }) => {
             return singleShopLoader(params.id);
           },
+        },
+        {
+          path: '/cart',
+          element: <Cart />,
+        },
+        {
+          path: '/checkout',
+          element: <Checkout />,
+          action: checkoutAction,
         },
       ],
     },

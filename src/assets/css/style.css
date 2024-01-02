@@ -946,7 +946,7 @@ textarea {
 }
 
 .color {
-  float: left;
+  display: inline-block;
   margin: 3px;
 }
 
@@ -1104,4 +1104,8 @@ textarea {
   position: absolute;
   top: 0;
   right: -5px;
+}
+
+.error {
+  color: #e64a19;
 }

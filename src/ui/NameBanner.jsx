@@ -1,13 +1,13 @@
 import { Col, Container, Row } from 'react-bootstrap';
 
-const NameBanner = () => {
+const NameBanner = ({ title }) => {
   return (
     <div className="hero">
       <Container>
         <Row className="justify-content-between">
           <Col lg={5}>
             <div className="intro-excerpt">
-              <h1>Cart</h1>
+              <h1>{title}</h1>
             </div>
           </Col>
           <Col lg={7}></Col>
