@@ -12,6 +12,9 @@ import Signup from './feature/auth/Signup';
 import Cart from './feature/cart/Cart';
 import Checkout from './feature/checkout/Checkout';
 import { action as checkoutAction } from './feature/checkout/CheckoutForm';
+import ThankYou, {
+  loader as thankYouLoader,
+} from './feature/checkout/ThankYou';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -44,6 +47,13 @@ const App = () => {
           path: '/checkout',
           element: <Checkout />,
           action: checkoutAction,
+        },
+        {
+          path: '/checkout/:id',
+          element: <ThankYou />,
+          loader: ({ params }) => {
+            return thankYouLoader(params.id);
+          },
         },
       ],
     },

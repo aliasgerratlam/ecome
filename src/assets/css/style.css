@@ -1087,10 +1087,12 @@ textarea {
   position: absolute;
   top: 15px;
   right: 15px;
-  font-size: 18px;
-  width: 50px;
-  height: 50px;
+  font-size: 25px;
+  width: 80px;
+  height: 80px;
   padding: 0;
+  border: none;
+  background-color: #fff;
 }
 
 .custom-navbar-cta li {
@@ -1108,4 +1110,100 @@ textarea {
 
 .error {
   color: #e64a19;
+}
+
+.thankyou-page {
+  padding: 5rem;
+}
+
+.thankyou-page .header {
+  padding: 0 10rem;
+  text-align: center;
+}
+
+.thankyou-page .info {
+  column-count: 2;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: space-between;
+}
+
+.thankyou-page .wrapper {
+  width: 70%;
+  background: #f7f7f7;
+  border-radius: 30px;
+  margin: 20px auto 40px;
+  padding: 10px;
+}
+
+.thankyou-page .info .item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-align: left;
+}
+
+.thankyou-page .info .item.date p {
+  font-size: 12px;
+}
+
+.thankyou-page .info .item.name p {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.thankyou-page .info .item h3 {
+  font-size: 14px;
+  margin: 0;
+  font-weight: 600;
+}
+
+.thankyou-page .info .item p {
+  margin: 0;
+}
+
+.thankyou-page .order-overview {
+  width: 70%;
+  padding: 3rem;
+  border-radius: 30px;
+  background-color: #fff;
+  margin: 0 auto;
+}
+
+.thankyou-page .product-thumbnail img {
+  height: 100px;
+  width: 60%;
+  object-fit: cover;
+}
+
+.custom-navbar-cta li button {
+  font-size: 24px;
+  color: #fff;
+}
+
+.search-wrapper input {
+  background-color: #f7f7f7;
+  border: none;
+  padding: 10px 50px 10px 20px;
+  border-radius: 30px;
+  width: 300px;
+  color: #222222;
+}
+
+.search-wrapper .search {
+  position: absolute;
+  right: 0;
+}
+
+.search-wrapper .search button {
+  padding: 0;
+  background-color: transparent;
+  color: #2f2f2f;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 15px;
+  outline: none;
+  border: none;
 }

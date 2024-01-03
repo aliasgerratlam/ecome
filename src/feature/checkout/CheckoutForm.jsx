@@ -1,19 +1,22 @@
 import { useSelector } from 'react-redux';
-import { Form, useActionData } from 'react-router-dom';
+import { Form, redirect, useActionData } from 'react-router-dom';
 import { getCart } from '../cart/cartSlice';
 import { store } from '../../store';
 import { updateCheckoutData } from './checkoutSlice';
 import { v4 as uuidv4 } from 'uuid';
-import clearCart from '../cart/cartSlice';
+import { clearCart } from '../cart/cartSlice';
+import useCartPrice from '../cart/useCartPrice';
 
 // eslint-disable-next-line no-unused-vars
 const isValidPhone = (str) =>
   /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
     str,
   );
+
 const CheckoutForm = () => {
   const cart = useSelector(getCart);
   const formError = useActionData();
+  const { totalCartPrice, totalPrice, totalTax } = useCartPrice();
 
   return (
     <div className="p-3 p-lg-5 border bg-white">
@@ -86,6 +89,9 @@ const CheckoutForm = () => {
           />
         </div>
         <input type="hidden" name="cart" value={JSON.stringify(cart)} />
+        <input type="hidden" name="subtotal" value={totalPrice} />
+        <input type="hidden" name="tax" value={totalTax} />
+        <input type="hidden" name="finalPrice" value={totalCartPrice} />
 
         <div className="form-group">
           <button className="btn btn-black btn-lg py-3 btn-block">
@@ -117,12 +123,15 @@ export const action = async ({ request }) => {
   if (!order.email.length) errors.email = 'Please give us your correct email.';
 
   if (Object.keys(errors).length > 0) return errors;
+  if (!order.cart.length) {
+    alert('Please shop something');
+    return null;
+  }
 
   store.dispatch(updateCheckoutData(order));
-  console.log('order', order);
   store.dispatch(clearCart());
 
-  return null;
+  return redirect(`/checkout/${order.id}`);
 };
 
 export default CheckoutForm;

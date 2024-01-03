@@ -4,6 +4,7 @@ import { Container, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getCartQuantity } from '../feature/cart/cartSlice';
+import Search from './Search';
 
 const Header = () => {
   const count = useSelector(getCartQuantity);
@@ -50,6 +51,9 @@ const Header = () => {
           </ul>
 
           <ul className="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+            <li className="mx-1">
+              <Search />
+            </li>
             <li>
               <a className="nav-link" href="#">
                 <img src={User} />

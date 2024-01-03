@@ -2,14 +2,17 @@ import { CurrencyFormatter } from '../../utils/FormatCurrency';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 import ColorSwatch from './ColorSwatch';
 import QuantityButton from './QuantityButton';
-import { IoMdHeart } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMemo, useState } from 'react';
 import { addItem, deleteItem, getCart } from '../cart/cartSlice';
+import HeartAnime from '../../assets/images/heart.gif';
+import { Image } from 'react-bootstrap';
+import WithOutHeart from '../../assets/images/heart.svg';
 
 const DetailBlock = ({ getSingleProduct }) => {
   const dispatch = useDispatch();
   const cartItem = useSelector(getCart);
+  const [wishlist, setWishlist] = useState(false);
   const {
     id,
     name,
@@ -27,6 +30,11 @@ const DetailBlock = ({ getSingleProduct }) => {
     () => cartItem.some((cart) => cart.name === name),
     [cartItem, name],
   );
+
+  const handleWishlist = (e) => {
+    e.preventDefault();
+    setWishlist((prev) => !prev);
+  };
 
   const handleAddToCart = (e) => {
     e.preventDefault();
@@ -118,8 +126,12 @@ const DetailBlock = ({ getSingleProduct }) => {
               </button>
             )}
 
-            <button className="btn-sm wishlist-btn rounded-circle border border-black">
-              <IoMdHeart />
+            <button className="btn-sm wishlist-btn" onClick={handleWishlist}>
+              {!wishlist ? (
+                <Image width={30} height={30} src={WithOutHeart} alt="" />
+              ) : (
+                <Image width={70} height={70} src={HeartAnime} alt="" />
+              )}
             </button>
           </div>
         </div>

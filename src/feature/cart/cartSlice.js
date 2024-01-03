@@ -30,6 +30,7 @@ export const cartSlice = createSlice({
     },
 
     clearCart(state) {
+      console.log('ClearCart');
       state.cart = [];
     },
   },
