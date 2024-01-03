@@ -89,9 +89,9 @@ const CheckoutForm = () => {
           />
         </div>
         <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-        <input type="hidden" name="subtotal" value={totalPrice} />
-        <input type="hidden" name="tax" value={totalTax} />
-        <input type="hidden" name="finalPrice" value={totalCartPrice} />
+        <input type="hidden" name="subtotal" value={Number(totalPrice)} />
+        <input type="hidden" name="tax" value={Number(totalTax)} />
+        <input type="hidden" name="finalPrice" value={Number(totalCartPrice)} />
 
         <div className="form-group">
           <button className="btn btn-black btn-lg py-3 btn-block">

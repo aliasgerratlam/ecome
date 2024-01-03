@@ -10,6 +10,8 @@ const ThankYou = () => {
 
   const checkout = data?.find((item) => item.id === id);
 
+  console.log('checkout.totalPrice', checkout.totalPrice);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -83,7 +85,8 @@ const ThankYou = () => {
                 </div>
                 <div className="text-right col-md-6">
                   <strong className="text-black">
-                    <CurrencyFormatter amount={checkout?.totalPrice} />
+                    {console.log('checkout.totalPrice', checkout.totalPrice)}
+                    <CurrencyFormatter amount={checkout.subtotal} />
                   </strong>
                 </div>
               </div>
@@ -93,7 +96,7 @@ const ThankYou = () => {
                 </div>
                 <div className="col-md-6">
                   <strong className="text-black">
-                    <CurrencyFormatter amount={Number(checkout?.totalTax)} />
+                    <CurrencyFormatter amount={checkout.tax} />
                   </strong>
                 </div>
               </div>
@@ -103,9 +106,7 @@ const ThankYou = () => {
                 </div>
                 <div className="col-md-6">
                   <strong className="text-black">
-                    <CurrencyFormatter
-                      amount={Number(checkout?.totalCartPrice)}
-                    />
+                    <CurrencyFormatter amount={checkout.finalPrice} />
                   </strong>
                 </div>
               </div>
@@ -114,8 +115,7 @@ const ThankYou = () => {
         </div>
         <div className="final-pay text-center p-5">
           <h2 className="m-0">
-            You have to pay:{' '}
-            <CurrencyFormatter amount={Number(checkout?.totalCartPrice)} />
+            You have to pay: <CurrencyFormatter amount={checkout.finalPrice} />
           </h2>
         </div>
         <div className="wrapper">
