@@ -3,16 +3,29 @@ import { FaStar, FaRegStar } from 'react-icons/fa';
 import ColorSwatch from './ColorSwatch';
 import QuantityButton from './QuantityButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { useMemo, useState } from 'react';
-import { addItem, deleteItem, getCart } from '../cart/cartSlice';
+import { useEffect, useMemo, useState } from 'react';
+import {
+  addItem,
+  addItemToWishlist,
+  deleteItem,
+  deleteItemFromWishlist,
+  getCart,
+} from '../cart/cartSlice';
 import HeartAnime from '../../assets/images/heart.gif';
 import { Image } from 'react-bootstrap';
 import WithOutHeart from '../../assets/images/heart.svg';
+import { useFetcher } from 'react-router-dom';
 
 const DetailBlock = ({ getSingleProduct }) => {
   const dispatch = useDispatch();
+  const fetcher = useFetcher();
   const cartItem = useSelector(getCart);
   const [wishlist, setWishlist] = useState(false);
+
+  useEffect(() => {
+    if (!fetcher.data && fetcher.state === 'idle') fetcher.load('/shop');
+  }, [fetcher]);
+
   const {
     id,
     name,
@@ -34,6 +47,11 @@ const DetailBlock = ({ getSingleProduct }) => {
   const handleWishlist = (e) => {
     e.preventDefault();
     setWishlist((prev) => !prev);
+    const wishlitItem = fetcher?.data.filter((item) => item.id === id);
+    console.log('wishlist', wishlist);
+    if (wishlist) dispatch(addItemToWishlist(...wishlitItem));
+
+    dispatch(deleteItemFromWishlist(id));
   };
 
   const handleAddToCart = (e) => {

@@ -1,7 +1,7 @@
 import User from '../assets/images/user.svg';
 import Cart from '../assets/images/cart.svg';
 import { Container, Navbar } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getCartQuantity } from '../feature/cart/cartSlice';
 import Search from './Search';
@@ -18,35 +18,32 @@ const Header = () => {
 
         <div className="collapse navbar-collapse" id="navbarsFurni">
           <ul className="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-            <li className="nav-item active">
-              <Link className="nav-link" to="/">
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/">
                 Home
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link className="nav-link" to="/shop">
+              <NavLink className="nav-link" to="/shop">
                 Shop
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <a className="nav-link" href="about.html">
-                About us
-              </a>
+              <a className="nav-link">About us</a>
             </li>
             <li>
-              <a className="nav-link" href="services.html">
-                Services
-              </a>
+              <a className="nav-link">Services</a>
             </li>
             <li>
-              <a className="nav-link" href="blog.html">
-                Blog
-              </a>
+              <a className="nav-link">Blog</a>
             </li>
             <li>
-              <a className="nav-link" href="contact.html">
-                Contact us
-              </a>
+              <a className="nav-link">Contact us</a>
+            </li>
+            <li>
+              <NavLink className="nav-link" to="/wishlist">
+                Wishlist
+              </NavLink>
             </li>
           </ul>
 

@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   cart: [],
+  wishlist: [],
 };
 
 export const cartSlice = createSlice({
@@ -30,8 +31,17 @@ export const cartSlice = createSlice({
     },
 
     clearCart(state) {
-      console.log('ClearCart');
       state.cart = [];
+    },
+
+    addItemToWishlist(state, action) {
+      state.wishlist.push(action.payload);
+    },
+
+    deleteItemFromWishlist(state, action) {
+      state.wishlist = state.wishlist.filter(
+        (item) => item.id !== action.payload,
+      );
     },
   },
 });
@@ -42,11 +52,15 @@ export const {
   increaseQuantity,
   decreaseQuantity,
   clearCart,
+  addItemToWishlist,
+  deleteItemFromWishlist,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
 
 export const getCart = (state) => state.cart.cart;
+
+export const getWishlist = (state) => state.cart.wishlist;
 
 export const getCartQuantity = (state) =>
   state.cart.cart.reduce((prev, qty) => prev + qty.quantity, 0);

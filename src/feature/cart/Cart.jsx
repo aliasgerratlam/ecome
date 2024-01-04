@@ -6,10 +6,21 @@ import { getCart } from './cartSlice';
 import { Link } from 'react-router-dom';
 import { CurrencyFormatter } from '../../utils/FormatCurrency';
 import useCartPrice from './useCartPrice';
+import EmptyCart from './EmptyCart';
 
 const Cart = () => {
   const carts = useSelector(getCart);
   const { totalCartPrice, totalPrice, totalTax } = useCartPrice();
+
+  if (!carts.length)
+    return (
+      <EmptyCart
+        heading="Your Cart is Empty"
+        title="Cart"
+        description="Cart's a little light, isn't it? Explore our collection and
+    add some goodies to your basket!"
+      />
+    );
 
   return (
     <div>

@@ -153,7 +153,7 @@ const Footer = () => {
               <p className="mb-2 text-center text-lg-start">
                 Copyright &copy;
                 {new Date().getFullYear()}. All Rights Reserved. &mdash;
-                Designed with love by <strong>Kabutar</strong>
+                Designed with ❤️
               </p>
             </div>
 

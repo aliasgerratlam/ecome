@@ -15,6 +15,7 @@ import { action as checkoutAction } from './feature/checkout/CheckoutForm';
 import ThankYou, {
   loader as thankYouLoader,
 } from './feature/checkout/ThankYou';
+import Wishlist from './feature/shop/Wishlist';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -42,6 +43,10 @@ const App = () => {
         {
           path: '/cart',
           element: <Cart />,
+        },
+        {
+          path: '/wishlist',
+          element: <Wishlist />,
         },
         {
           path: '/checkout',
