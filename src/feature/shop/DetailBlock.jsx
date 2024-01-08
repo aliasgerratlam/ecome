@@ -3,14 +3,8 @@ import { FaStar, FaRegStar } from 'react-icons/fa';
 import ColorSwatch from './ColorSwatch';
 import QuantityButton from './QuantityButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useMemo, useState } from 'react';
-import {
-  addItem,
-  addItemToWishlist,
-  deleteItem,
-  deleteItemFromWishlist,
-  getCart,
-} from '../cart/cartSlice';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { addItem, addItemToWishlist, deleteItem, deleteItemFromWishlist, getCart } from '../cart/cartSlice';
 import HeartAnime from '../../assets/images/heart.gif';
 import { Image } from 'react-bootstrap';
 import WithOutHeart from '../../assets/images/heart.svg';
@@ -20,38 +14,41 @@ const DetailBlock = ({ getSingleProduct }) => {
   const dispatch = useDispatch();
   const fetcher = useFetcher();
   const cartItem = useSelector(getCart);
-  const [wishlist, setWishlist] = useState(false);
+  const [isItemInWishlist, setIsItemInWishlist] = useState();
 
-  useEffect(() => {
-    if (!fetcher.data && fetcher.state === 'idle') fetcher.load('/shop');
+  const wishlistData = useSelector((state) => state.cart.wishlist);
+
+  const { id, name, images, stars, price, description, stock, category, company, colors } = getSingleProduct;
+  const [color, setColor] = useState(() => colors[0]);
+  const isCart = useMemo(() => cartItem.some((cart) => cart.name === name), [cartItem, name]);
+
+  const loadShopData = useCallback(async () => {
+    if (!fetcher.data && fetcher.state === 'idle') {
+      fetcher.load('/shop');
+    }
   }, [fetcher]);
 
-  const {
-    id,
-    name,
-    images,
-    stars,
-    price,
-    description,
-    stock,
-    category,
-    company,
-    colors,
-  } = getSingleProduct;
-  const [color, setColor] = useState(() => colors[0]);
-  const isCart = useMemo(
-    () => cartItem.some((cart) => cart.name === name),
-    [cartItem, name],
-  );
+  const checkItemInWishlist = useCallback(() => {
+    const wishlitItem = fetcher?.data?.find((item) => item.id === id) || {};
+    setIsItemInWishlist(wishlistData.some((item) => item.id === wishlitItem.id));
+  }, [fetcher, wishlistData, id]);
+
+  useEffect(() => {
+    loadShopData();
+    checkItemInWishlist();
+  }, [loadShopData, checkItemInWishlist]);
 
   const handleWishlist = (e) => {
     e.preventDefault();
-    setWishlist((prev) => !prev);
-    const wishlitItem = fetcher?.data.filter((item) => item.id === id);
-    console.log('wishlist', wishlist);
-    if (wishlist) dispatch(addItemToWishlist(...wishlitItem));
+    const wishlitItem = fetcher?.data?.find((item) => item.id === id) || {};
 
-    dispatch(deleteItemFromWishlist(id));
+    if (isItemInWishlist) {
+      dispatch(deleteItemFromWishlist(id));
+      setIsItemInWishlist(false);
+    } else {
+      dispatch(addItemToWishlist(wishlitItem));
+      setIsItemInWishlist(true);
+    }
   };
 
   const handleAddToCart = (e) => {
@@ -112,14 +109,7 @@ const DetailBlock = ({ getSingleProduct }) => {
           <div className="color-options d-flex align-items-center">
             <h6 className="item-title fw-bold mb-0 me-2">Color:</h6>
             {colors.map((name, i) => (
-              <ColorSwatch
-                colorName={name}
-                key={i}
-                type="radio"
-                index={i}
-                setColor={setColor}
-                color={color}
-              />
+              <ColorSwatch colorName={name} key={i} type="radio" index={i} setColor={setColor} color={color} />
             ))}
           </div>
         )}
@@ -127,29 +117,20 @@ const DetailBlock = ({ getSingleProduct }) => {
         <div className="stock-button-wrap my-4">
           <div className="d-flex flex-wrap pt-2">
             {stock > 0 && isCart && <QuantityButton id={id} />}
-            {stock === 0 && (
-              <div className="outOfStock-tag">Out of Stock❗</div>
-            )}
+            {stock === 0 && <div className="outOfStock-tag">Out of Stock❗</div>}
             {stock > 0 && !isCart && (
               <button className="btn me-2" onClick={handleAddToCart}>
                 Add to cart
               </button>
             )}
             {isCart && (
-              <button
-                className="btn bg-danger border-danger me-2"
-                onClick={handleRemoveFromCart}
-              >
+              <button className="btn bg-danger border-danger me-2" onClick={handleRemoveFromCart}>
                 Remove from cart
               </button>
             )}
 
             <button className="btn-sm wishlist-btn" onClick={handleWishlist}>
-              {!wishlist ? (
-                <Image width={30} height={30} src={WithOutHeart} alt="" />
-              ) : (
-                <Image width={70} height={70} src={HeartAnime} alt="" />
-              )}
+              {!isItemInWishlist ? <Image width={30} height={30} src={WithOutHeart} alt="" /> : <Image width={70} height={70} src={HeartAnime} alt="" />}
             </button>
           </div>
         </div>
@@ -157,9 +138,7 @@ const DetailBlock = ({ getSingleProduct }) => {
 
       <div className="meta-product pt-4">
         <div className="meta-item d-flex align-items-baseline">
-          <h6 className="item-title fw-bold no-margin pe-2">
-            Manufactured by:
-          </h6>
+          <h6 className="item-title fw-bold no-margin pe-2">Manufactured by:</h6>
           <ul className="select-list list-unstyled d-flex">
             <li className="select-item text-capitalize">{company}</li>
           </ul>

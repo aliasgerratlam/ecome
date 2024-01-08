@@ -4,17 +4,13 @@ import './assets/css/style.css';
 import AppLayout from './ui/AppLayout';
 import Home, { loader as homeProductLoader } from './ui/Home';
 import Shop, { loader as shopProductLoader } from './feature/shop/Shop';
-import ShopDetail, {
-  loader as singleShopLoader,
-} from './feature/shop/ShopDetail';
+import ShopDetail, { loader as singleShopLoader } from './feature/shop/ShopDetail';
 import { action as shopAction } from './feature/shop/Filter';
 import Signup from './feature/auth/Signup';
 import Cart from './feature/cart/Cart';
 import Checkout from './feature/checkout/Checkout';
 import { action as checkoutAction } from './feature/checkout/CheckoutForm';
-import ThankYou, {
-  loader as thankYouLoader,
-} from './feature/checkout/ThankYou';
+import ThankYou, { loader as thankYouLoader } from './feature/checkout/ThankYou';
 import Wishlist from './feature/shop/Wishlist';
 
 const App = () => {
@@ -62,6 +58,7 @@ const App = () => {
         },
       ],
     },
+
     {
       path: '/signup',
       element: <Signup />,
